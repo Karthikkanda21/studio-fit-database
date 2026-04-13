@@ -1,0 +1,111 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2869
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 # Studio Fit \'97 Relational Database System\
+\
+A fully normalised relational database designed for Studio Fit, a boutique \
+fitness start-up in London. The project migrates the business from a \
+flat-file spreadsheet system to a secure, scalable MySQL RDBMS \'97 addressing \
+data redundancy, referential integrity, and GDPR compliance.\
+\
+---\
+\
+## Key Highlights\
+\
+- **6 normalised tables** in Third Normal Form (3NF) \'97 zero redundancy\
+- **110 members, 50 trainers, 55 class types** \'97 realistic business dataset\
+- **8 advanced SQL queries** including window functions, correlated subqueries, \
+  and multi-table JOINs for revenue and performance analysis\
+- **GDPR-compliant RBAC** \'97 role-based access control separating manager and \
+  trainer permissions; trainers cannot access payment or member PII tables\
+- **Performance optimisation** \'97 6 strategic indexes with EXPLAIN analysis \
+  demonstrating measurable query performance improvements\
+- **Integrity testing** \'97 documented test cases for duplicate email rejection \
+  and invalid foreign key enforcement\
+\
+---\
+\
+## Database Schema\
+\
+| Table           | Description                                      | Key Relationships        |\
+|-----------------|--------------------------------------------------|--------------------------|\
+| members         | Member profiles and membership type              | \uc0\u8594  bookings               |\
+| trainers        | Trainer details and specialty area               | \uc0\u8594  class_schedule         |\
+| class_types     | Class templates: category, difficulty, specialty | \uc0\u8594  class_schedule         |\
+| class_schedule  | Timed class instances linked to trainers         | \uc0\u8594  bookings               |\
+| bookings        | Member reservations with status tracking         | \uc0\u8594  payments               |\
+| payments        | Financial transactions per booking               |                          |\
+\
+---\
+\
+## Advanced Queries Included\
+\
+1. **Revenue by class category** \'97 multi-table JOIN across 4 tables with aggregation\
+2. **Trainer performance ranking** \'97 DENSE_RANK() window function on attendance count\
+3. **High-value members** \'97 subquery with HAVING clause against average spend\
+4. **Cancellation rate by difficulty** \'97 conditional aggregation with ROUND()\
+5. **Members with no bookings** \'97 LEFT JOIN with IS NULL filter\
+6. **Peak booking hours** \'97 HOUR() extraction with GROUP BY\
+7. **Yoga-only members** \'97 NOT EXISTS correlated subquery\
+8. **Monthly revenue trend** \'97 DATE_FORMAT() time-series aggregation\
+\
+---\
+\
+## Performance Optimisation\
+\
+EXPLAIN analysis was run before and after index creation on:\
+- `bookings.booking_date` \'97 for time-based filtering\
+- `bookings.schedule_id` \'97 for schedule-level JOIN acceleration\
+- `bookings.member_id` \'97 for member-level aggregations\
+- `payments.booking_id` \'97 for payment JOIN performance\
+- `payments.payment_date` \'97 for financial reporting queries\
+- `class_schedule.class_type_id` \'97 for category-level analysis\
+\
+---\
+\
+## Security Implementation\
+\
+```sql\
+-- Manager: full CRUD access\
+CREATE USER 'manager_sarah'@'localhost' IDENTIFIED BY 'SecurePass123!';\
+GRANT ALL PRIVILEGES ON studio_fit.* TO 'manager_sarah'@'localhost';\
+\
+-- Trainer: read-only access to schedule only (no PII, no payments)\
+CREATE USER 'trainer_tom'@'localhost' IDENTIFIED BY 'TrainerPass456!';\
+GRANT SELECT ON studio_fit.class_schedule TO 'trainer_tom'@'localhost';\
+GRANT SELECT ON studio_fit.class_types TO 'trainer_tom'@'localhost';\
+```\
+\
+---\
+\
+## How to Run\
+\
+1. Install MySQL (or use XAMPP / MySQL Workbench)\
+2. Open MySQL Workbench or any SQL client\
+3. Open `schema_and_queries.sql`\
+4. Run the full script \'97 it creates the database, all tables, inserts data, \
+   and executes all queries automatically\
+5. Alternatively, import `database_dump.sql` for the pre-populated database\
+\
+---\
+\
+## Project Report\
+\
+A full technical report (2,470 words) covering requirements analysis, ERD \
+design, normalisation methodology, implementation, and results is available in \
+[`docs/Studio_Fit_Database_Report.pdf`](docs/Studio_Fit_Database_Report.pdf)\
+\
+---\
+\
+## Technologies\
+\
+MySQL \'b7 SQL \'b7 Database Design \'b7 3NF Normalisation \'b7 RBAC \'b7 GDPR \'b7 \
+Performance Optimisation \'b7 Stored Procedures \'b7 Window Functions\
+\
+---\
+\
+**Karthik Kandagatla** \'b7 [LinkedIn](https://www.linkedin.com/in/karthik-kandagatla-1067761ba)}
